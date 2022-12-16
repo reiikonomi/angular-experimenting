@@ -1,0 +1,258 @@
+<!-- <p>booking works!</p>
+{{ bookingForm.value | json }}
+{{ bookingForm.pristine | json }}
+{{ bookingForm.dirty | json }} -->
+
+<div>
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="addPassport()"
+  >
+    Add Passport
+  </button>
+</div>
+<div>
+  <button
+    mat-raised-button
+    color="secondary"
+    type="button"
+    (click)="deletePassport()"
+  >
+    Delete Passport
+  </button>
+</div>
+<form [formGroup]="bookingForm" (ngSubmit)="Submit()">
+  <mat-form-field *ngIf="bookingForm.get('passport')">
+    <mat-label>Passport</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="passport"
+      placeholder="Passport"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Room ID</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="roomId"
+      placeholder="Room ID"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Guest Email</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="guestEmail"
+      placeholder="Guest Email"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Check In Date</mat-label>
+    <input
+      type="datetime"
+      matInput
+      formControlName="checkinDate"
+      placeholder="Check In Date"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Checkout Date</mat-label>
+    <input
+      type="datetime"
+      matInput
+      formControlName="checkoutDate"
+      placeholder="Checkout Date"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>bookingStatus</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="bookingStatus"
+      placeholder="bookingStatus"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>bookingAmount</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="bookingAmount"
+      placeholder="bookingAmount"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>bookingDate</mat-label>
+    <input
+      type="datetime"
+      matInput
+      formControlName="bookingDate"
+      placeholder="bookingDate"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>mobileNumber</mat-label>
+    <input
+      type="tel"
+      matInput
+      formControlName="mobileNumber"
+      placeholder="mobileNumber"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>guestName</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="guestName"
+      placeholder="guestName"
+    />
+    <mat-error *ngIf="bookingForm.get('guestName')?.hasError('minlength')">
+      Guest name min 5 char
+    </mat-error>
+    {{ bookingForm.get("guestName")?.errors | json }}
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <mat-label>guestCount</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="guestCount"
+      placeholder="guestCount"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>guestList</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="guestList"
+      placeholder="guestList"
+    />
+  </mat-form-field> -->
+
+  <div formGroupName="address">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Address </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-form-field>
+          <mat-label>addressLine1</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="addressLine1"
+            placeholder="addressLine1"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>addressLine1</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="addressLine2"
+            placeholder="addressLine2"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>city</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="city"
+            placeholder="city"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>state</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="state"
+            placeholder="state"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>country</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="country"
+            placeholder="country"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>zipCode</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="zipCode"
+            placeholder="zipCode"
+          />
+        </mat-form-field>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="addGuest()"
+    >
+      Add Guest
+    </button>
+  </div>
+  <div formArrayName="guests">
+    <mat-accordion class="example-headers-align" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Guests </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let guest of guests.controls; let i = index">
+          <div [formGroupName]="i">
+            <mat-form-field>
+              <mat-label>guestName</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="guestName"
+                placeholder="guestName"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>age</mat-label>
+              <input
+                type="number"
+                matInput
+                formControlName="age"
+                placeholder="age"
+              />
+            </mat-form-field>
+          </div>
+          <div>
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              (click)="removeGuest(i)"
+            >
+              Remove Guest
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </div>
+</form>
